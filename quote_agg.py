@@ -10,8 +10,9 @@ start = time.time()
 # inDir = '/Users/yisli/Documents/landlordlady/Tesla/ad hoc projects/part price breakdown/sample data from Niranjan/'
 # rootDir = '/Users/yisli/Documents/landlordlady/Tesla/ad hoc projects/part price breakdown/sample file/'
 # rootDir = '//teslamotors.com/US/Finance/Cost IQ/Quotes/M3/Drive Unit\Motor-Transmission'
-rootDir = '//teslamotors.com/US/Finance/Cost IQ/Quote IQ/Quotes/MS'
+rootDir = '//teslamotors.com/US/Finance/Cost IQ/Quote IQ/Quotes/M3'
 allFile = fc.list_files(rootDir)
+TotalFileCount = len(allFile)
 outDir = '/Users/yisli/Documents/landlordlady/Tesla/ad hoc projects/part price breakdown/output/'
 
 ####################### trying to read all the data from multiple files ###########################
@@ -34,8 +35,13 @@ outData = pd.DataFrame()
 f_skipped = pd.DataFrame()
 f_skipped = []
 # for f in allFile:
+i=0
 for f in allFile:
+    i = i+1
     print('\n\n\nreading file: ', f)
+    print('file #',i)
+    print('/\/\/\/\/\/\/\/\/\/\/\Progress so far: {0:.2f}% /\/\/\/\/\/\/\/\/\/\\'.format(i/TotalFileCount * 100))
+    ### we use .2f so that we can show 2 decimal points; if you use .0f then you will get integers only
     # print(f.rsplit('\\', 1)[1][0])
     # xl = pd.ExcelFile(f)
 
@@ -159,7 +165,7 @@ for f in allFile:
 
     ############### replace all (XXX/hr) into "per hr"!!!
     PriceDataValid.columns = [re.sub('\(.+/(.+)\)', r'per \1', s) for s in PriceDataValid.columns]
-    print('new columns are: ', PriceDataValid.columns.values)
+    # print('new columns are: ', PriceDataValid.columns.values)
 
     # IndexToDelete = []
 
@@ -211,10 +217,10 @@ cols = ['QuoteDate', 'CurrencyFromSummary', 'Supplier', 'SupplierContact', 'Cont
         'Cost type', 'Component', 'Detail', 'Quantity in assembly', 'Amount (in std UOM)', 'Cost',
         'Sub-supplier transport', 'Cycle time (min)', 'Pieces per cycle', 'Machine rate per hr',
         'Number of operators', 'Labor rate per hr', 'Cost.1',  'CurrencyFromPiecePrice', 'File Location']
-print('columns before rearrangement: ', outData.columns.values)
+# print('columns before rearrangement: ', outData.columns.values)
 outData = outData[cols]
 
-print(PriceDataValid.columns.values)
+# print(PriceDataValid.columns.values)
 # print(len(cols))
 # reorder the columns to have supplier and partnumber in the front
 # cols = outData.columns.tolist()

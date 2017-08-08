@@ -4,13 +4,13 @@ import time
 from pyexcelerate import Workbook
 
 start = time.time()
-rootDir = r'C:/Users/yisli/Documents/landlordlady/Tesla/ad hoc projects/part price breakdown/output/all/7-27/'
+rootDir = r'C:/Users/yisli/Documents/landlordlady/Tesla/ad hoc projects/part price breakdown/output/all/8-8/'
 
-data_X = pd.read_excel(os.path.join(rootDir,'X.xlsx'))
+data_X = pd.read_excel(os.path.join(rootDir,'MX.xlsx'))
 data_X['Program'] = 'X'
-data_S = pd.read_excel(os.path.join(rootDir,'S.xlsx'))
+data_S = pd.read_excel(os.path.join(rootDir,'MS.xlsx'))
 data_S['Program'] = 'S'
-data_3 = pd.read_excel(os.path.join(rootDir,'3.xlsx'))
+data_3 = pd.read_excel(os.path.join(rootDir,'M3.xlsx'))
 data_3['Program'] = '3'
 
 data_all = data_X.append(data_S.append(data_3))

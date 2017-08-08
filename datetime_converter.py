@@ -17,15 +17,23 @@ def datetime_converter(input_date_string):
         elif type(input_date_string) == type(6.3):
             if math.isnan(input_date_string):
                 # print(math.isnan(input_date_string))
-                return ""
+                return input_date_string
             else:
+                try:
+                    date_converted = dateutil.parser.parse(input_date_string)
+                    print('converted old date', input_date_string, ' to new date ', date_converted)
+                    return date_converted
+                except:
+                    print('date cannot be converted')
+                    return input_date_string
+        elif type(input_date_string) != type(datetime.datetime.now()):
+            try:
                 date_converted = dateutil.parser.parse(input_date_string)
                 print('converted old date', input_date_string, ' to new date ', date_converted)
                 return date_converted
-        elif type(input_date_string) != type(datetime.datetime.now()):
-            date_converted = dateutil.parser.parse(input_date_string)
-            print('converted old date', input_date_string, ' to new date ', date_converted)
-            return date_converted
+            except:
+                print('date cannot be converted')
+                return input_date_string
         else:
             return input_date_string
     else:
